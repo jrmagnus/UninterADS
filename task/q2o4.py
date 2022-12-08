@@ -21,10 +21,7 @@ prg = 24
 total = 0
 
 # função para pedido
-def inputs():
-    size = input('Entre com o TAMANHO do pote desejada (P/M/G): ')
-    type = input('Entre com o CÓDIGO do sabor desejado (TR/ES/PR) :')
-
+def inputs(type, size, total):
     if (size == 'P' or size == 'M' or size == 'G') and (type == 'TR' or type == 'ES' or type == 'PR'):
         while size == 'P':
             if type == 'TR':
@@ -66,11 +63,25 @@ def inputs():
                 type = 'PREMIUM'
                 break
 
-        total = value + total
         print(f'Você pediu um sorvete sabor {type} {size} de R${value},00')
-
+        print('--------------------------------------------------------------')
+        status = input(f'Deseja pedir mais alguma coisa? (S / N)')
+        total = total + value
+        if status == 'S':
+            size = input('Entre com o TAMANHO do pote desejada (P/M/G): ')
+            type = input('Entre com o CÓDIGO do sabor desejado (TR/ES/PR) :')
+            inputs(type, size, total)
+        else:
+            print(f'O pedido total ficou em R${total},00.')
     else:
         print('!!! TAMANHO OU CÓDIGO INVALIDO !!!')
-        inputs()
+        size = input('Entre com o TAMANHO do pote desejada (P/M/G): ')
+        type = input('Entre com o CÓDIGO do sabor desejado (TR/ES/PR) :')
+        inputs(type, size, total)
 
-inputs()
+    return total
+
+size = input('Entre com o TAMANHO do pote desejada (P/M/G): ')
+type = input('Entre com o CÓDIGO do sabor desejado (TR/ES/PR) :')
+
+inputs(type, size, total)
